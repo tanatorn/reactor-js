@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "eval": "^0.1.1"
+    "eval": "^0.1.1",
+    "js-beautify": "^1.6.2"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
