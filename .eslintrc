@@ -5,7 +5,7 @@
     "jsx-quotes": [2, "prefer-double"],
     "semi": [2, "never"],
     "padded-blocks": 0,
-    "no-param-reassign": [2, {"props": false}]
-
+    "no-param-reassign": [2, {"props": false}],
+    "no-console": 0
   }
 }

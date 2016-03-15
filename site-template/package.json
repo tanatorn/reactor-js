@@ -1,0 +1,17 @@
+{
+  "name": "Your Website Name",
+  "version": "1.0",
+  "description": "Your website description",
+  "main": "index.js",
+  "devDependencies": {
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.1",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "1.14.0"
+  },
+  "scripts": {
+
+  },
+  "author": "Your Name"
+}
