@@ -1,18 +1,17 @@
 import React from 'react'
 import _eval from 'eval'
-
 import {
   getDirectory,
   render,
   isRoute,
 } from './helper'
-
 import {
   match,
   RouterContext,
 } from 'react-router'
 
-class ReactorWebpackPlugin {
+
+class GeneratorPlugin {
 
   constructor(options) {
     this.options = options
@@ -68,4 +67,9 @@ class ReactorWebpackPlugin {
   }
 }
 
-module.exports = ReactorWebpackPlugin
+
+const Reactor = {
+  GeneratorPlugin,
+}
+
+export default Reactor
