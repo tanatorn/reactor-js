@@ -1,6 +1,6 @@
 import webpack from 'webpack'
 import path from 'path'
-import Reactor from '../index'
+import Reactor from '../plugin/index'
 
 const getConfig = (debug) => {
 
@@ -18,11 +18,16 @@ const getConfig = (debug) => {
         query: {
           presets: ['react', 'es2015', 'stage-0'],
         },
-      }],
+      },
+        {
+          test: /\.md$/,
+          exclude: /(node_modules)/,
+          loaders: ['markdown-front-matter'],
+        }],
     },
     resolve: {
-      extensions: ['', '.js', '.jsx'],
-      root: process.cwd(),
+      extensions: ['', '.js', '.jsx', '.md'],
+      root: path.resolve(process.cwd()),
     },
     devServer: {
       contentBase: path.resolve(process.cwd()),
@@ -39,10 +44,10 @@ const getConfig = (debug) => {
   if (debug) {
     config.devtool = 'eval'
     config.output.publicPath = 'http://localhost:8080/'
-    config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080')
-    // config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
+    // config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080')
+    config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
   } else {
-    config.plugins.unshift(new Reactor({ source: 'bundle.js' }))
+    config.plugins.unshift(new Reactor.GeneratorPlugin({ source: 'bundle.js' }))
     config.plugins.unshift(new webpack.optimize.DedupePlugin())
     config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin())
     config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({

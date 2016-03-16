@@ -6,15 +6,11 @@ import {
 import { html } from 'js-beautify'
 
 export const render = (route, options) => {
-  const body = options.debug || options.enableReactMarkup ? renderToString(route)
+
+  const body = !options.noJS ? `<div id="react-root">${renderToString(route)}</div>`
     : renderToStaticMarkup(route)
 
-  let debug = ''
-
-  if (options.debug) {
-    debug = '<script src="http://localhost:8080/webpack-dev-server.js"></script>\n' +
-            '<script src="http://localhost:8080/bundle.js" charset="utf-8"></script>'
-  }
+  const script = !options.noJS ? `<script src="${options.source}"></script>` : ''
 
   const markup = `
   <!doctype html>
@@ -24,13 +20,12 @@ export const render = (route, options) => {
       <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-      <div id="react-root">${body}</div>
-      <script src="${options.source}"></script>
-      ${debug}
+      ${body}
+      ${script}
     </body>
   </html>
   `
-  return options.enableReactMarkup || options.debug ? markup : html(markup)
+  return !options.noJS ? markup : html(markup)
 
 }
 
