@@ -1,62 +1,28 @@
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import React from 'react'
-import ReactDOM from 'react-dom/server'
-
-import { RouterContext, match } from 'react-router'
+import path from 'path'
 import getConfig from './webpack.config.js'
 import express from 'express'
 
-
-// const REACTOR_CONFIG = path.join(process.cwd(), 'routes.js')
-
-
-const render = (body) => (
-  `<!DOCTYPE html>
-  <html>
-    <head>
-      <title>Reactor</title>
-    </head>
-
-    <body>
-      <div id="react-root">${body}</div>
-    </body>
-    <script src="bundle.js"></script>
-  </html>`
-)
-
-
-const startServer = (routes) => {
+const serve = () => {
   const webpackConfig = getConfig(true)
   const compiler = webpack(webpackConfig)
-  const app = express()
-  app.use(webpackDevMiddleware(compiler, {
+  const server = express()
+
+  server.use(webpackDevMiddleware(compiler, {
     contentBase: webpackConfig.devServer.contentBase,
     publicPath: webpackConfig.devServer.publicPath,
     stats: { colors: true },
-    // noInfo: true,
+    noInfo: true,
   }))
-  app.use(webpackHotMiddleware(compiler))
+  server.use(webpackHotMiddleware(compiler))
 
-  app.get('*', (req, res) => {
-    match({ routes, location: req.url }, (error, redirectLocation, props) => {
-      res.status(200).send(render(ReactDOM.renderToString(<RouterContext {...props} />)))
-    })
-  })
-  app.listen(8080)
-  /* const server = new WebpackDevServer(compiler, {
-    contentBase: webpackConfig.devServer.contentBase,
-    publicPath: webpackConfig.devServer.publicPath,
+  server.get('*', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'index.html'))
   })
   server.listen(8080)
-  */
 
-}
-
-
-const serve = (routes) => {
-  startServer(routes)
   /* fs.accessAsync(REACTOR_CONFIG, 'fs.R_OK')
     .then(() => fs.readFileAsync(REACTOR_CONFIG, 'utf8'))
     .then((data) => {

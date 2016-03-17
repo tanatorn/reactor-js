@@ -6,7 +6,6 @@ const getConfig = (debug) => {
 
   const config = {
     context: path.join(process.cwd(), '/'),
-    devtool: debug ? 'inline-sourcemap' : null,
     entry: {
       app: ['./index.js'],
     },
@@ -27,6 +26,8 @@ const getConfig = (debug) => {
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.md'],
+      modulesDirectories: ['web_modules', 'node_modules',
+        path.join(__dirname, '../../', 'node_modules')],
       root: path.resolve(process.cwd()),
     },
     devServer: {
@@ -38,11 +39,14 @@ const getConfig = (debug) => {
       filename: 'bundle.js',
       libraryTarget: 'umd',
     },
+    resolveLoader: {
+      root: path.join(__dirname, '../../', 'node_modules'),
+    },
     plugins: [],
   }
 
   if (debug) {
-    config.devtool = 'eval'
+    config.devtool = 'cheap-module-source-map'
     config.output.publicPath = 'http://localhost:8080/'
     config.entry.app.unshift('webpack-hot-middleware/client?reload=true')
     config.plugins.unshift(new webpack.optimize.OccurrenceOrderPlugin())
@@ -50,8 +54,8 @@ const getConfig = (debug) => {
     config.plugins.unshift(new webpack.NoErrorsPlugin())
   } else {
     config.plugins.unshift(new Reactor.GeneratorPlugin({ source: 'bundle.js' }))
-    config.plugins.unshift(new webpack.optimize.DedupePlugin())
     config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin())
+    config.plugins.unshift(new webpack.optimize.DedupePlugin())
     config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({
       mangle: false,
       sourcemap: false,

@@ -7,7 +7,7 @@ const postTitle = {
 
 const Home = () => {
 
-  const posts = Reactor.getPosts().map((post, index) => {
+  const posts = Reactor.getPosts('blog').map((post, index) => {
     const generateMarkup = () => ({ __html: post.body })
     return (
       <div key={index}>
@@ -19,7 +19,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Welcome to Reactor! Wow</h1>
+      <h1>Welcome to Reactor! Cancer Wow Live Reload</h1>
       {posts}
     </div>)
 }

@@ -7,7 +7,9 @@ const build = () => {
   compiler.run((err) => {
     if (err) {
       console.error(err)
+      return
     }
+    console.log('Successfullly generated website!')
   })
 }
 
