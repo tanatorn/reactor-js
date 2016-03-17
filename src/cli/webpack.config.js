@@ -44,8 +44,10 @@ const getConfig = (debug) => {
   if (debug) {
     config.devtool = 'eval'
     config.output.publicPath = 'http://localhost:8080/'
-    // config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080')
+    config.entry.app.unshift('webpack-hot-middleware/client?reload=true')
+    config.plugins.unshift(new webpack.optimize.OccurrenceOrderPlugin())
     config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
+    config.plugins.unshift(new webpack.NoErrorsPlugin())
   } else {
     config.plugins.unshift(new Reactor.GeneratorPlugin({ source: 'bundle.js' }))
     config.plugins.unshift(new webpack.optimize.DedupePlugin())
