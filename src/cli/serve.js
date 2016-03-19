@@ -35,10 +35,9 @@ const serve = () => {
       const reactorConfig = require(REACTOR_CONFIG)
       if (reactorConfig && reactorConfig.webpack && Object.keys(reactorConfig.webpack).length > 0) {
         startServer(reactorConfig)
-      } else {
-        startServer(getConfig(true))
       }
     })
+    .catch(() => startServer(getConfig(true)))
 
 }
 

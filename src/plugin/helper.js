@@ -5,12 +5,14 @@ import {
 } from 'react-dom/server'
 import { html } from 'js-beautify'
 
-export const render = (route, options) => {
+export const render = (route, options, assets) => {
+
+  const style = `<link rel="stylesheet" type="text/css" href="${assets.css}">`
 
   const body = !options.noJS ? `<div id="react-root">${renderToString(route)}</div>`
     : renderToStaticMarkup(route)
 
-  const script = !options.noJS ? `<script src="${options.source}"></script>` : ''
+  const script = !options.noJS ? `<script src="${assets.js}"></script>` : ''
 
   const markup = `
   <!doctype html>
@@ -18,6 +20,7 @@ export const render = (route, options) => {
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      ${style}
     </head>
     <body>
       ${body}

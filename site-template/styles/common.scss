@@ -4,17 +4,22 @@ $container-background: #f5f5f5;
 $inline-code-background: #e8f1f6;
 $inline-code-color: rgba(0, 0, 0, .5);
 
-.container {
+html,
+body {
   background: $container-background;
   font-family: Helvetica Neue, sans-serif;
   font-weight: 200;
   height: 100%;
 }
 
+.container {
+  height: 100%;
+}
 
 code {
   background: $inline-code-background;
   color: $inline-code-color;
+  font-size: 1.1rem;
 }
 
 @import './prism';

@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 const navigations = [
   { url: '/', name: 'Home' },
   { url: '404', name: 'Error' },
-  { url: 'op', name: 'OP' },
+  { url: 'get-started', name: 'Get Started'}
 ]
 
 const Base = ({ children }) => {

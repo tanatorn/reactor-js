@@ -1,20 +1,21 @@
 import webpack from 'webpack'
 import path from 'path'
 import Reactor from '../plugin/index'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const getConfig = (debug) => {
 
   const config = {
     context: path.join(process.cwd(), '/'),
     entry: {
-      app: ['./index.js'],
+      bundle: ['./index.js'],
     },
     module: {
       loaders: [
         {
           test: /\.(jsx|js)?$/,
           exclude: /(node_modules)/,
-          loader: 'babel-loader',
+          loader: 'babel',
           query: {
             presets: ['react', 'es2015', 'stage-0'],
           },
@@ -22,17 +23,12 @@ const getConfig = (debug) => {
         {
           test: /\.md$/,
           exclude: /(node_modules)/,
-          loaders: ['markdown-front-matter'],
+          loader: 'markdown-front-matter',
         },
         {
           test: /\.scss$/,
           exclude: /(node_modules)/,
-          loaders: ['style', 'css', 'sass'],
-        },
-        {
-          test: /\.css$/,
-          exclude: /(node_modules)/,
-          loaders: ['style', 'css'],
+          loader: debug ? 'style!css!sass' : ExtractTextPlugin.extract('style', 'css!sass'),
         },
       ],
     },
@@ -48,7 +44,7 @@ const getConfig = (debug) => {
     },
     output: {
       path: path.join(process.cwd(), 'site'),
-      filename: 'bundle.js',
+      filename: '[name].js',
       libraryTarget: 'umd',
     },
     resolveLoader: {
@@ -60,12 +56,18 @@ const getConfig = (debug) => {
   if (debug) {
     config.devtool = 'cheap-module-source-map'
     config.output.publicPath = 'http://localhost:8080/'
-    config.entry.app.unshift('webpack-hot-middleware/client?reload=true')
+    config.entry.bundle.unshift('webpack-hot-middleware/client?reload=true')
     config.plugins.unshift(new webpack.optimize.OccurrenceOrderPlugin())
     config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
     config.plugins.unshift(new webpack.NoErrorsPlugin())
   } else {
-    config.plugins.unshift(new Reactor.GeneratorPlugin({ source: 'bundle.js' }))
+    config.plugins.unshift(new Reactor.GeneratorPlugin({
+      source: 'bundle.js',
+      noJS: true,
+    }))
+    config.plugins.unshift(new ExtractTextPlugin('[name].css', {
+      allChunks: true,
+    }))
     config.plugins.unshift(new webpack.optimize.OccurenceOrderPlugin())
     config.plugins.unshift(new webpack.optimize.DedupePlugin())
     config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({

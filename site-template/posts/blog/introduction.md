@@ -27,4 +27,11 @@ const routes = (
 export default routes
 ```
 
-Reactor also comes with a built in development server, allowing for live editing of the contents
+Reactor also comes with a built in development server, allowing for live editing of the contents.
+Importing SCSS files is supported out of the box, and can be imported and used like so,
+```
+// Importing a file path-relative
+import './styles/common.scss'
+// OR
+require('./styles/common.scss')
+```
