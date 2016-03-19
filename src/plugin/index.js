@@ -53,6 +53,10 @@ class GeneratorPlugin {
             fullPath = fullPath.replace('/.html', '/index.html')
           }
 
+          if (fullPath.indexOf('*.html') !== -1) {
+            fullPath = fullPath.replace('*.html', '404.html')
+          }
+
           // Wrting file back into the assets
           compilation.assets[fullPath] = { source: () => file, size: () => file.length }
 

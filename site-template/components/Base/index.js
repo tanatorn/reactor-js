@@ -1,19 +1,31 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-const Base = ({ children }) => (
-  <div>
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
+const navigations = [
+  { url: '/', name: 'Home' },
+  { url: '404', name: 'Error' },
+  { url: 'op', name: 'OP' },
+]
+
+const Base = ({ children }) => {
+
+  const navigationItems = navigations.map((navigation, index) => (
+      <li className="list-item" key={index}>
+        <Link to={navigation.url} className="link">{navigation.name}</Link>
       </li>
-      <li>
-        <Link to="error">404</Link>
-      </li>
-    </ul>
-    <div>{children}</div>
-  </div>
-)
+    )
+  )
+
+  return (
+    <div className="container">
+      <ul className="navigation">
+        {navigationItems}
+      </ul>
+      <div className="content-body">{children}</div>
+    </div>
+  )
+
+}
 
 
 Base.propTypes = {

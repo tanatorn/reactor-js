@@ -10,19 +10,31 @@ const getConfig = (debug) => {
       app: ['./index.js'],
     },
     module: {
-      loaders: [{
-        test: /\.(jsx|js)?$/,
-        exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-0'],
+      loaders: [
+        {
+          test: /\.(jsx|js)?$/,
+          exclude: /(node_modules)/,
+          loader: 'babel-loader',
+          query: {
+            presets: ['react', 'es2015', 'stage-0'],
+          },
         },
-      },
         {
           test: /\.md$/,
           exclude: /(node_modules)/,
           loaders: ['markdown-front-matter'],
-        }],
+        },
+        {
+          test: /\.scss$/,
+          exclude: /(node_modules)/,
+          loaders: ['style', 'css', 'sass'],
+        },
+        {
+          test: /\.css$/,
+          exclude: /(node_modules)/,
+          loaders: ['style', 'css'],
+        },
+      ],
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.md'],

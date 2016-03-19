@@ -1,0 +1,25 @@
+$link-color: #fff;
+
+.navigation {
+  align-items: center;
+  background: $primary-color;
+  display: flex;
+  height: 3rem;
+  margin: 0;
+  padding: 0 .5rem;
+  width: 100%;
+}
+
+.list-item {
+  display: inline-block;
+  padding: .5rem;
+}
+
+.link {
+  color: $link-color;
+  text-decoration: none;
+}
+
+.content-body {
+  padding: 1rem;
+}

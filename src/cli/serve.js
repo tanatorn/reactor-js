@@ -4,9 +4,14 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import path from 'path'
 import getConfig from './webpack.config.js'
 import express from 'express'
+import fse from 'fs-extra'
+import Promise from 'bluebird'
 
-const serve = () => {
-  const webpackConfig = getConfig(true)
+const fs = Promise.promisifyAll(fse)
+
+const REACTOR_CONFIG = `${process.cwd()}/reactor.config.js`
+
+const startServer = (webpackConfig) => {
   const compiler = webpack(webpackConfig)
   const server = express()
 
@@ -23,22 +28,17 @@ const serve = () => {
   })
   server.listen(8080)
 
-  /* fs.accessAsync(REACTOR_CONFIG, 'fs.R_OK')
-    .then(() => fs.readFileAsync(REACTOR_CONFIG, 'utf8'))
-    .then((data) => {
-      const transpiledData = babel.transform(data, { presets: ['es2015', 'stage-0', 'react'] }).code
-      const routes = _eval(transpiledData, true)
-      startServer(routes)
-    })*/
-
-
-  // Check if current working directory has an index.js
-  // If it does, use it as an entrypoint
-  /* fs.accessAsync(REACTOR_CONFIG, 'fs.R_OK')
-    // If config file exist
-    .then(readReactorConfig)
-    .then(startServer)
-    .catch(startServer) */
+}
+const serve = () => {
+  fs.accessAsync(REACTOR_CONFIG, 'fs.R_OK')
+    .then(() => {
+      const reactorConfig = require(REACTOR_CONFIG)
+      if (reactorConfig && reactorConfig.webpack && Object.keys(reactorConfig.webpack).length > 0) {
+        startServer(reactorConfig)
+      } else {
+        startServer(getConfig(true))
+      }
+    })
 
 }
 
