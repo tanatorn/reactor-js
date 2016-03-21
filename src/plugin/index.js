@@ -21,12 +21,16 @@ class GeneratorPlugin {
   apply(compiler) {
     compiler.plugin('emit', (compilation, callback) => {
 
-      const src = this.options.source
-      const asset = compilation.assets[src]
+      const js = this.options.js
+      const css = this.options.css
+
+      const asset = compilation.assets[js]
       const source = _eval(asset.source(), true)
 
+      const name = this.options.name
+
       if (this.options.noJS) {
-        delete compilation.assets[src]
+        delete compilation.assets[js]
       }
 
       // Trying to find the base route
@@ -42,9 +46,9 @@ class GeneratorPlugin {
       const directories = getDirectory(routes)
       directories.forEach(directory => {
         // Match each directory to a route and render out the page
-        match({ routes, location: directory }, (error, redirect, renderProps) => {
-          const file = render(<RouterContext {...renderProps} />, this.options,
-            { js: src, css: 'bundle.css' })
+        match({ routes, location: directory }, (error, redirect, props) => {
+          const file = render(<RouterContext {...props} />, this.options,
+            { js, css, name })
 
           // Adding a .html suffix to the directory as well as checking to see if it is an index
           // route, if it is an index route, we have to rename the directory from '/.html'

@@ -1,6 +1,5 @@
 import webpack from 'webpack'
 import path from 'path'
-import Reactor from '../plugin/index'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const getConfig = (debug) => {
@@ -61,10 +60,6 @@ const getConfig = (debug) => {
     config.plugins.unshift(new webpack.HotModuleReplacementPlugin())
     config.plugins.unshift(new webpack.NoErrorsPlugin())
   } else {
-    config.plugins.unshift(new Reactor.GeneratorPlugin({
-      source: 'bundle.js',
-      noJS: true,
-    }))
     config.plugins.unshift(new ExtractTextPlugin('[name].css', {
       allChunks: true,
     }))

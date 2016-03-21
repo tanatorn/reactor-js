@@ -2,9 +2,8 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
 const navigations = [
-  { url: '/', name: 'Home' },
-  { url: '404', name: 'Error' },
-  { url: 'get-started', name: 'Get Started'}
+  { url: 'index', name: 'Home' },
+  { url: 'get-started', name: 'Get Started' },
 ]
 
 const Base = ({ children }) => {

@@ -19,6 +19,7 @@ export const render = (route, options, assets) => {
   <html>
     <head>
       <meta charset="utf-8">
+      <title>${options.name}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       ${style}
     </head>

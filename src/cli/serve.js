@@ -29,12 +29,15 @@ const startServer = (webpackConfig) => {
   server.listen(8080)
 
 }
+
 const serve = () => {
   fs.accessAsync(REACTOR_CONFIG, 'fs.R_OK')
     .then(() => {
       const reactorConfig = require(REACTOR_CONFIG)
       if (reactorConfig && reactorConfig.webpack && Object.keys(reactorConfig.webpack).length > 0) {
         startServer(reactorConfig)
+      } else {
+        startServer(getConfig(true))
       }
     })
     .catch(() => startServer(getConfig(true)))
