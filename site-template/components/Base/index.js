@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 const navigations = [
   { url: 'index', name: 'Home' },
-  { url: 'get-started', name: 'Get Started' },
+  { url: 'blog', name: 'Blog' },
 ]
 
 const Base = ({ children }) => {

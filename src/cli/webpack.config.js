@@ -29,6 +29,17 @@ const getConfig = (debug) => {
           exclude: /(node_modules)/,
           loader: debug ? 'style!css!sass' : ExtractTextPlugin.extract('style', 'css!sass'),
         },
+        {
+          test: /\.png$/,
+          exclude: /(node_modules)/,
+          loader: 'url-loader?limit=10000',
+        },
+        {
+          test: /\.jpg$/,
+          exclude: /(node_modules)/,
+          loader: 'file-loader',
+        },
+
       ],
     },
     resolve: {
