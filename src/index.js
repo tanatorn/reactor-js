@@ -17,7 +17,8 @@ const getPosts = (directory, mappingCallback) => {
     return collections.map((post, index) => (
         <div key={index}>
           <h3 className="post-title">{post.attributes.title}</h3>
-          <span className="post-description">{post.attributes.description}</span>
+          <hr />
+          <h4 className="post-description">{post.attributes.description}</h4>
           <div className="post-body" dangerouslySetInnerHTML={generateMarkup(post.body)} />
         </div>
     ))

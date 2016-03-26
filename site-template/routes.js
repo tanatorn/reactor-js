@@ -3,14 +3,14 @@ import { Route } from 'react-router'
 
 import Base from './components/Base/index'
 import Home from './screens/Home/index'
+import Contact from './screens/Contact/index'
 import NotFound from './screens/NotFound/index'
-import Blog from './screens/Blog/index'
 
 const routes = (
   <Route component={Base} >
     <Route component={Home} path="/" />
     <Route component={Home} path="index" />
-    <Route component={Blog} path="blog" />
+    <Route component={Contact} path="contact" />
     <Route component={NotFound} path="*" />
   </Route>
 )

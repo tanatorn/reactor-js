@@ -1,16 +1,35 @@
-.reactor-header {
-  font-size: 3rem;
+.header {
+  font-size: 2.75rem;
   font-weight: 100;
+  margin-bottom: 1.5rem;
   text-align: center;
+
+  &-underline {
+    margin: 0 5rem;
+  }
 }
 
-.post-title {
-  font-size: 2.5rem;
-  font-weight: 100;
-  margin-bottom: 0;
-}
+.post {
 
-.post-description {
-  font-size: 1.25rem;
-  font-style: italic;
+  &-body {
+    code {
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+  }
+
+  &-container {
+    margin: 1.5rem 2rem;
+  }
+
+  &-description {
+    font-style: italic;
+  }
+
+  &-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+
 }

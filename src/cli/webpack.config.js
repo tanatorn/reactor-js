@@ -30,6 +30,11 @@ const getConfig = (debug) => {
           loader: debug ? 'style!css!sass' : ExtractTextPlugin.extract('style', 'css!sass'),
         },
         {
+          test: /\.css$/,
+          exclude: /(node_modules)/,
+          loader: debug ? 'style!css' : ExtractTextPlugin.extract('style', 'css'),
+        },
+        {
           test: /\.png$/,
           exclude: /(node_modules)/,
           loader: 'url-loader?limit=10000',

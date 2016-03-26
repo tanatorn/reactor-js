@@ -1,13 +1,27 @@
 $link-color: #fff;
+$navigation-background: #0f0f0f;
 
 .navigation {
   align-items: center;
-  background: $primary-color;
+  background: $navigation-background;
   display: flex;
   height: 3rem;
   margin: 0;
   padding: 0 .5rem;
-  width: 100%;
+  position: relative;
+
+  &-list {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  &-brand {
+    color: $link-color;
+    font-size: 1.25rem;
+    font-weight: 100;
+    padding: .5rem;
+  }
 }
 
 .list-item {
