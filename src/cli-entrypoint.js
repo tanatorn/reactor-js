@@ -5,7 +5,7 @@ import serve from './cli/serve'
 import build from './cli/build'
 
 program
-  .version('0.0.1')
+  .version('0.0.7')
   .usage('<command>')
   .option('init', 'Create a new Reactor project')
   .option('serve', 'Run a Reactor server instance')

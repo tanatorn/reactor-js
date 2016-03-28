@@ -76,9 +76,4 @@ class GeneratorPlugin {
   }
 }
 
-
-const Reactor = {
-  GeneratorPlugin,
-}
-
-export default Reactor
+export default GeneratorPlugin

@@ -6,10 +6,12 @@ import getConfig from './webpack.config.js'
 import express from 'express'
 import fse from 'fs-extra'
 import Promise from 'bluebird'
+import { parseConfig } from './helper'
 
 const fs = Promise.promisifyAll(fse)
 
 const REACTOR_CONFIG = `${process.cwd()}/reactor.config.js`
+
 
 const startServer = (webpackConfig) => {
   const compiler = webpack(webpackConfig)
@@ -35,7 +37,8 @@ const serve = () => {
     .then(() => {
       const reactorConfig = require(REACTOR_CONFIG)
       if (reactorConfig && reactorConfig.webpack && Object.keys(reactorConfig.webpack).length > 0) {
-        startServer(reactorConfig)
+        const config = parseConfig(getConfig(true), reactorConfig)
+        startServer(config)
       } else {
         startServer(getConfig(true))
       }

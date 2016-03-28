@@ -3,7 +3,6 @@ import {
     renderToStaticMarkup,
     renderToString,
 } from 'react-dom/server'
-import { html } from 'js-beautify'
 
 export const render = (route, options, assets) => {
 
@@ -29,7 +28,7 @@ export const render = (route, options, assets) => {
     </body>
   </html>
   `
-  return !options.noJS ? markup : html(markup)
+  return markup
 
 }
 

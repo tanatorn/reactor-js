@@ -7,8 +7,6 @@ const fs = Promise.promisifyAll(fse)
 
 /**
  * Initializes Reactor
- * @param  {[type]} args [description]
- * @return {[type]}      [description]
  */
 const init = (args) => {
   if (args.length < 0 || args.length > 1) {
@@ -25,8 +23,9 @@ const init = (args) => {
   fs.mkdirAsync(targetDirectory)
     .then(() => fs.copyAsync(templateDirectory, targetDirectory))
     .then(() => {
-      const message = `Successfully created ${projectName}, to start developing, ` +
-        'use, reactor-cli serve'
+      const message =
+      `Successfully created ${projectName}, to start developing,
+      run 'cd ${projectName} && npm install'use reactor serve`
       console.log(message)
     })
     .catch(err => {
