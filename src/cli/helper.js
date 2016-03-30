@@ -1,4 +1,9 @@
-export const parseConfig = (baseConfig, userConfig) => {
+// import Promise from 'bluebird'
+// import fse from 'fs-extra'
+
+// const fs = Promise.promisifyAll(fse)
+
+export const parseConfig = (baseConfig, userConfig, debug) => {
   const config = baseConfig
 
   const { entry, module, resolve } = userConfig.webpack
@@ -12,6 +17,12 @@ export const parseConfig = (baseConfig, userConfig) => {
 
   if (entry) {
     config.entry = entry
+
+    // Main module is currently the first one
+    const mainBundle = Object.keys(entry)[0]
+    if (debug) {
+      config.entry[mainBundle].push('webpack-hot-middleware/client?reload=true')
+    }
   }
 
   if (resolve) {
@@ -22,3 +33,16 @@ export const parseConfig = (baseConfig, userConfig) => {
 
   return config
 }
+
+export const createCustomIndex = ({ name }) => (
+  `
+  <!doctype html>
+  <html>
+    <head>
+      <title>${name}</title>
+    </head>
+    <body style="margin: 0;">
+      <div id="react-root"></div>
+      <script src="bundle.js"></script>
+    </body>
+  </html>`)

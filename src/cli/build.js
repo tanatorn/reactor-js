@@ -23,10 +23,11 @@ const compile = (config) => {
 const build = () => {
   const config = getConfig(false)
   fs.accessAsync(REACTOR_CONFIG, 'fs.R_OK')
+    .then(() => fs.remove(`${process.cwd()}/site`))
     .then(() => {
       const userConfig = require(REACTOR_CONFIG)
       const { baseUrl, name } = userConfig
-      const reactorConfig = parseConfig(config, userConfig)
+      const reactorConfig = parseConfig(config, userConfig, false)
       reactorConfig.plugins.unshift(new GeneratorPlugin({
         js: 'bundle.js',
         css: 'bundle.css',

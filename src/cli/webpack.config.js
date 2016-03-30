@@ -35,14 +35,9 @@ const getConfig = (debug) => {
           loader: debug ? 'style!css' : ExtractTextPlugin.extract('style', 'css'),
         },
         {
-          test: /\.png$/,
+          test: /\.(png|jpg|gif)$/,
           exclude: /(node_modules)/,
           loader: 'url-loader?limit=10000',
-        },
-        {
-          test: /\.jpg$/,
-          exclude: /(node_modules)/,
-          loader: 'file-loader',
         },
 
       ],
