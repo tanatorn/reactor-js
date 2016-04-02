@@ -1,7 +1,7 @@
 import fse from 'fs-extra'
 import path from 'path'
 import Promise from 'bluebird'
-import { createCustomIndex } from './helper'
+import { createCustomIndex, createReactorConfig } from './helper'
 import readline from 'readline'
 
 
@@ -43,7 +43,8 @@ const init = (args) => {
       return fs.mkdirAsync(targetDirectory)
     })
     .then(() => fs.copyAsync(templateDirectory, targetDirectory))
-    .then(() => createCustomIndex(configuration))
+    .then(() => createCustomIndex(configuration, targetDirectory))
+    .then(() => createReactorConfig(configuration, targetDirectory))
     .then(() => {
       const message =
       `Successfully created ${projectName}, to start developing,

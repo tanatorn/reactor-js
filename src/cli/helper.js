@@ -1,7 +1,8 @@
-// import Promise from 'bluebird'
-// import fse from 'fs-extra'
+import Promise from 'bluebird'
+import path from 'path'
+import fse from 'fs-extra'
 
-// const fs = Promise.promisifyAll(fse)
+const fs = Promise.promisifyAll(fse)
 
 export const parseConfig = (baseConfig, userConfig, debug) => {
   const config = baseConfig
@@ -34,15 +35,27 @@ export const parseConfig = (baseConfig, userConfig, debug) => {
   return config
 }
 
-export const createCustomIndex = ({ name }) => (
-  `
+// Generate custom index file with the site name as the title
+export const createCustomIndex = ({ name }, directory) => {
+  const content = `
   <!doctype html>
   <html>
     <head>
       <title>${name}</title>
+      <base href="/" />
     </head>
-    <body style="margin: 0;">
+    <body>
       <div id="react-root"></div>
       <script src="bundle.js"></script>
     </body>
-  </html>`)
+  </html>`
+  return fs.writeFileAsync(path.resolve(`${directory}/index.html`), content)
+}
+
+export const createReactorConfig = ({ name, baseUrl }, directory) => {
+  const configTemplate = `
+  module.exports = {
+    name: '${name}'
+  }`
+  return fs.writeFileAsync(`${directory}/reactor.config.js`, configTemplate)
+}

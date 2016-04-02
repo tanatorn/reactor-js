@@ -17,6 +17,7 @@ const compile = (config) => {
       return
     }
     console.log('Successfullly generated website!')
+
   })
 }
 
@@ -28,6 +29,8 @@ const build = () => {
       const userConfig = require(REACTOR_CONFIG)
       const { baseUrl, name } = userConfig
       const reactorConfig = parseConfig(config, userConfig, false)
+
+      // Resource names are defaulted to bundle.js and bundle.css right now
       reactorConfig.plugins.unshift(new GeneratorPlugin({
         js: 'bundle.js',
         css: 'bundle.css',

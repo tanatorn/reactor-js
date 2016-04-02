@@ -6,7 +6,7 @@ import {
 
 export const render = (route, options, assets) => {
 
-  const style = `<link rel="stylesheet" type="text/css" href="${assets.css}">`
+  const style = `<link rel="stylesheet" type="text/css" href="/${assets.css}">`
 
   const body = !options.noJS ? `<div id="react-root">${renderToString(route)}</div>`
     : renderToStaticMarkup(route)
