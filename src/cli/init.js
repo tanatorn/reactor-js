@@ -48,7 +48,9 @@ const init = (args) => {
     .then(() => {
       const message =
       `Successfully created ${projectName}, to start developing,
-      run 'cd ${projectName} && npm install'use reactor serve`
+      run 'cd ${projectName} && npm install'.
+      To start developing, use 'npm start'. When you are ready to generate your site, `
+      + 'use \'npm run build\''
       console.log(message)
     })
     .catch(err => {

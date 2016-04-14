@@ -2,9 +2,9 @@ import React from 'react'
 import { Route } from 'react-router'
 
 import Base from './components/Base/index'
-import Home from './screens/Home/index'
-import Contact from './screens/Contact/index'
-import NotFound from './screens/NotFound/index'
+import Home from './containers/Home/index'
+import Contact from './containers/Contact/index'
+import NotFound from './containers/NotFound/index'
 
 const routes = (
   <Route component={Base} >

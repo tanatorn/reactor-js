@@ -10,8 +10,11 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.1",
-    "reactor-js": "0.0.4"
+    "reactor-js": "0.0.8"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "reactor serve",
+    "build": "reactor build"
+  },
   "author": "Your Name"
 }
