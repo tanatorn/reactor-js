@@ -37,7 +37,7 @@ const getConfig = (debug) => {
         {
           test: /\.(png|jpg|gif)$/,
           exclude: /(node_modules)/,
-          loader: 'url-loader?limit=10000',
+          loader: 'file?name=[path][name].[ext]?[hash]',
         },
 
       ],
